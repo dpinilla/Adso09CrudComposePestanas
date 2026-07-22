@@ -6,7 +6,11 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
 import io.ktor.http.ContentType.Application.Json
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -23,6 +27,14 @@ class ConexionCliente {
 
     suspend fun consultaCliente(): List<ModelCliente> {
         return client.get("${url}consultaCliente.php").body()
+    }
+
+    suspend fun insertaCliente(data: ModelCliente): ModelCliente {
+        return client.post("${url}insertaCliente.php"){
+            contentType(ContentType.Application.Json)
+            setBody(data)
+        }
+            .body()
     }
 
 }
