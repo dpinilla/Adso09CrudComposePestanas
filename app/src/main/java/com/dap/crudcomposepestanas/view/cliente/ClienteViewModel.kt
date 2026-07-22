@@ -21,6 +21,9 @@ class ClienteViewModel: ViewModel() {
                 val datos = conexionCliente.consultaCliente()
                 _lista.value = datos
             }
+            catch(e: io.ktor.client.plugins.ResponseException){
+                Log.e("dap","error ${e.response.status.value}")
+            }
             catch (e: Exception){
                 Log.e("dap", "No se pudo conectar al backend")
             }

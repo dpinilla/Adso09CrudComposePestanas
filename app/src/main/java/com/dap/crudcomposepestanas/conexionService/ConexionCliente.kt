@@ -1,5 +1,6 @@
 package com.dap.crudcomposepestanas.conexionService
 
+import com.dap.crudcomposepestanas.conexionService.ConexionService.Companion.url
 import com.dap.crudcomposepestanas.model.ModelCliente
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -18,11 +19,9 @@ class ConexionCliente {
         }
     }
 
-    companion object{
-        val url: String = "http://192.168.0.171/adso09crud/"
-    }
 
-    suspend fun consultaCliente(): List<ModelCliente>{
+
+    suspend fun consultaCliente(): List<ModelCliente> {
         return client.get("${url}consultaCliente.php").body()
     }
 

@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ModelCliente(
-    var cedula: String? = null,
-    var nombre: String? = null,
-    var apellido: String? = null,
-    var edad: Int? = null
+    val cedula: String? = null,
+    val nombre: String? = null,
+    val apellido: String? = null,
+    val edad: Int? = null
 )

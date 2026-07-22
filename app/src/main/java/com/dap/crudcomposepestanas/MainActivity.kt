@@ -31,7 +31,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CrudComposePestanasTheme {
-                CrudComposePestanasApp(viewModelCliente, viewModelArticulo)
+                NavegationCliente(viewModelCliente)
+                //CrudComposePestanasApp(viewModelCliente, viewModelArticulo)
             }
         }
     }
