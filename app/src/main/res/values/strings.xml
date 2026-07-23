@@ -7,4 +7,5 @@
     <string name="insertar">INSERTAR</string>
     <string name="guardar">GUARDAR</string>
     <string name="agregar">Agregar</string>
+    <string name="modificar">MODIFICAR</string>
 </resources>
