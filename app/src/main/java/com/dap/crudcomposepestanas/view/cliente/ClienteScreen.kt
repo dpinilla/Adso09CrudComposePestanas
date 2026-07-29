@@ -1,5 +1,6 @@
 package com.dap.crudcomposepestanas.view.cliente
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +24,8 @@ import com.dap.crudcomposepestanas.R
 @Composable
 fun ClienteScreen(
     viewModelCliente: ClienteViewModel,
-    onGoInsertar: () -> Unit
+    onGoInsertar: () -> Unit,
+    onGoModificar: (String) -> Unit
 ){
     val lista by viewModelCliente.listaCliente.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -42,7 +44,8 @@ fun ClienteScreen(
 
       }
     ) {MyPadding ->
-        LazyColumn(Modifier
+        LazyColumn(
+            Modifier
             .fillMaxSize()
             .padding(MyPadding)
         ) {
@@ -50,6 +53,9 @@ fun ClienteScreen(
                 Column(
                     Modifier
                         .fillMaxWidth()
+                        .clickable{
+                            onGoModificar(cliente.cedula.toString())
+                        }
                         .padding(16.dp)
                 ) {
                     Text("${stringResource(R.string.cedula)}${cliente.cedula}")

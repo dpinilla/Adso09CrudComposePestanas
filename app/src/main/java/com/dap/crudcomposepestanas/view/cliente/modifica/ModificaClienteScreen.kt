@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,8 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dap.crudcomposepestanas.R
+import com.dap.crudcomposepestanas.model.ModelCliente
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,10 +35,15 @@ fun ModificaClienteScreen(){
     var apellido by remember { mutableStateOf("") }
     var edad by remember { mutableStateOf("") }
     val modificaClienteViewModel: ModificaClienteViewModel = viewModel()
-    val data by modificaClienteViewModel
+    val data by modificaClienteViewModel.data.collectAsStateWithLifecycle()
 
     LaunchedEffect(data) {
-
+        data?.let { cliente ->
+            if(cedula.isBlank()) cedula = cliente.cedula?: ""
+            if(nombre.isBlank()) nombre = cliente.nombre?: ""
+            if(apellido.isBlank()) apellido = cliente.apellido?: ""
+            if(edad.isBlank()) edad = cliente.edad?.toString()?: ""
+        }
     }
 
     Scaffold(
@@ -86,8 +94,18 @@ fun ModificaClienteScreen(){
                 Modifier.fillMaxWidth(),
                 label = {Text(stringResource(R.string.edad))}
             )
-            Spacer(Modifier.height(30.dp)
-            )
+            Spacer(Modifier.height(30.dp))
+            Button(
+                onClick = {
+                    modificaClienteViewModel.modificarCliente(
+                        ModelCliente(cedula, nombre, apellido, edad.toInt())
+                    )
+                },
+                Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.modificar))
+            }
         }
 
     }

@@ -21,7 +21,10 @@ fun NavegationCliente(
         composable("cliente") {
             ClienteScreen(
                 viewModelCliente,
-                onGoInsertar = {navController.navigate("insertaCliente")}
+                onGoInsertar = {navController.navigate("insertaCliente")},
+                onGoModificar = { cedula ->
+                    navController.navigate("modificaCliente/$cedula")
+                }
             )
         }
         composable("insertaCliente") {

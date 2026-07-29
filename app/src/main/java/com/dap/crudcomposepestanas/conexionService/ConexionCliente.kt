@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
@@ -28,6 +29,13 @@ class ConexionCliente {
 
     suspend fun consultaCliente(): List<ModelCliente> {
         return client.get("${url}consultaCliente.php").body()
+    }
+
+    suspend fun consultaClienteId(cedula: String): ModelCliente {
+        return client.get("${url}consultaClienteId.php"){
+            parameter("cedula", cedula)
+        }
+            .body()
     }
 
     suspend fun insertaCliente(data: ModelCliente): ModelCliente {
